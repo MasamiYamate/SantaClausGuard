@@ -14,7 +14,6 @@ CS = config['Twitter']['ConsumerSecret']
 AT = config['Twitter']['AccessToken']
 ATS = config['Twitter']['AccessSecretToken']
 
-
 # Tweetを取得します
 def get_tweets ():
     # OAuth認証準備
