@@ -165,4 +165,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-./GadgetScript/santa_guard.ini
+*.ini
