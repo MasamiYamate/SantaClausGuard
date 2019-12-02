@@ -6,23 +6,43 @@ CONFIG_FILE_PATH = 'santa_guard.ini'
 
 REQUEST_ENDPOINT = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
-config = configparser.ConfigParser()
-config.read(CONFIG_FILE_PATH, 'UTF-8')
-
-CK = config['Twitter']['ConsumerKey']
-CS = config['Twitter']['ConsumerSecret']
-AT = config['Twitter']['AccessToken']
-ATS = config['Twitter']['AccessSecretToken']
-
 # Tweetを取得します
 def get_tweets ():
+    config = configparser.ConfigParser()
+    config.read(CONFIG_FILE_PATH, 'UTF-8')
+
+    CK = config['Twitter']['ConsumerKey']
+    CS = config['Twitter']['ConsumerSecret']
+    AT = config['Twitter']['AccessToken']
+    ATS = config['Twitter']['AccessSecretToken']
+
     # OAuth認証準備
     twitter = OAuth1Session(CK ,CS , AT , ATS)
-    search_parameter = {'screen_name': "NoradSanta"}
+    last_id = get_latest_tweet_id()
+
+    search_parameter = {'screen_name': "NoradSanta" , 'since': last_id}
+    print(search_parameter)
     req = twitter.get(REQUEST_ENDPOINT , params = search_parameter)
+    print(req.status_code)
     if req.status_code == 200:
-        tweets = json.loads(req.text)
+        user_timelines = json.loads(req.text)
+
+        # 最新のIDを取得する
+        latest_id = user_timelines[0]['id']
+        update_latest_tweet_id(str(latest_id))
+
+        # テキストを抽出
+        tweets = list(map(lambda x: extraction_tweet(x), user_timelines))
+
         print(tweets)
+
+        return tweets
+
+# Tweet内容を抜き出します
+def extraction_tweet (tweet):
+    tweet_text = tweet['text']
+    return tweet_text
+
 
 # 保存済みの最新のTweetIDを保存します
 def get_latest_tweet_id ():
@@ -33,10 +53,10 @@ def get_latest_tweet_id ():
     
 # 取得済みの最新のTweetIDを保存する
 def update_latest_tweet_id (latest_id):
-    file = open("./parms/latest_tweet_id.txt")
+    file = open("./parms/latest_tweet_id.txt", "w")
     file.write(latest_id)
     file.close()
-    print('latest id update' + latestid)
+    print('latest id update' + latest_id)
 
 if __name__ == '__main__':
     get_tweets()
