@@ -3,7 +3,7 @@ from polyglot.text import Text
 import cities
 
 # 日本が含まれているか確認する
-def match_tokyo(tags):
+def match_japan(tags):
     isMatch = False
     for token in tags:
         if token[0] == "Japan" and token[1] == "PROPN":
