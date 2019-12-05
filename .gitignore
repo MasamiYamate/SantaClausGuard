@@ -167,3 +167,4 @@ venv.bak/
 
 *.ini
 *.csv
+.DS_Store

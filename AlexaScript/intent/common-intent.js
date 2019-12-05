@@ -35,7 +35,7 @@ async function launchHandler (handlerInput) {
     if (isGadgetActive) {
         //　接続確認後のレスポンスを返却します
         return handlerInput.responseBuilder
-            .speak('Echoデバイスとガジェットの接続を確認できました。何分間のセッションを行いますか？')
+            .speak('Echoデバイスとガジェットの接続を確認できました。サンタさんの監視を開始します。')
             .withShouldEndSession(false)
             .getResponse();
     }else{
@@ -55,7 +55,7 @@ async function launchHandler (handlerInput) {
  */
 async function helpHandler (handlerInput) {
     return handlerInput.responseBuilder
-        .speak('このスキルは、技術勉強会などのタイムキーパー向けスキルです。')
+        .speak('このスキルは、サンタクロースを追跡するスキルです。')
         .withShouldEndSession(false)
         .getResponse();
 }
@@ -68,7 +68,7 @@ async function helpHandler (handlerInput) {
  */
 async function errorHandler (handlerInput) {
     return handlerInput.responseBuilder
-        .speak("エラー")
+        .speak("エラーです。")
         .withShouldEndSession(true)
         .getResponse();
 }

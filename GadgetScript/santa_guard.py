@@ -52,7 +52,7 @@ class SantaGuard(AlexaGadget):
             # サンタが日本に来ているか判別する
             if is_match_japan and city_name != None:
                 # サンタが日本に来ている場合
-                payload = {'city_ame': city_name }
+                payload = {'city_name': city_name }
                 self.send_custom_event(
                     'Custom.SantaGuard', 'SkillHandler', payload)
 
