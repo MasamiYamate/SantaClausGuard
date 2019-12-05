@@ -4,14 +4,14 @@ const gadgetUtil = require('../util/gadget-tool-util');
 const gadgetDirective = require('../directive/gadgetDirectiveFactory.js');
 
 module.exports = {
-    santaRadar: santaRadar,
+    santaLocationResponse: santaLocationResponse,
     sessionPersistenceResponse: sessionPersistenceResponse,
     sessionEndResponse: sessionEndResponse,
     gadgetEventHandler: gadgetEventHandler,
     gadgetSantaResponse: gadgetSantaResponse
 }
 
-async function santaRadar (handlerInput) {
+async function santaLocationResponse (handlerInput) {
     let sessionToken = gadgetUtil.sessionToken(handlerInput);
     // 永続化用のディレクティブ
     let persistenceDirective = gadgetDirective.sessionPersistence(sessionToken, null);

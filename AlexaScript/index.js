@@ -4,7 +4,7 @@ const skillUtil = require('./util/skil-util');
 
 // Intent関連
 const commonIntent = require('./intent/common-intent');
-const timerIntent = require('./intent/time-intent');
+const santaIntent = require('./intent/santa-radar-intent');
 
 
 let skill;
@@ -44,20 +44,12 @@ const handler = {
             return commonIntent.helpHandler(handlerInput);
         }
     },
-    TimeSelectHandler: {
+    SantaLocationHandler: {
         canHandle(handlerInput) {
-            return skillUtil.checkIntentTypeName(handlerInput, 'IntentRequest', 'TimeSelectIntent');
+            return skillUtil.checkIntentTypeName(handlerInput, 'IntentRequest', 'SantaLocationIntent');
         },
         async handle(handlerInput) {
-            return await timerIntent.timeSelectHandler(handlerInput);
-        }
-    },
-    RemainingTimeHandler: {
-        canHandle(handlerInput) {
-            return skillUtil.checkIntentTypeName(handlerInput, 'IntentRequest', 'RemainingTimeIntent');
-        },
-        async handle(handlerInput) {
-            return await timerIntent.remainingTimeResponse(handlerInput);
+            return await santaIntent.santaLocationResponse(handlerInput);
         }
     },
     CustomInterfaceEventHandler: {
@@ -65,7 +57,7 @@ const handler = {
             return skillUtil.checkIntentTypeName(handlerInput, 'CustomInterfaceController.EventsReceived');
         },
         async handle(handlerInput) {
-            return timerIntent.gadgetEventHandler(handlerInput);
+            return santaIntent.CustomInterfaceEventHandler(handlerInput);
         }
     },
     SessionEndedRequestHandler: {
